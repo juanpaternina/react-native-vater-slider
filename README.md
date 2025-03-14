@@ -16,7 +16,7 @@ A fully customizable **selector component** for React Native, built from scratch
 
 ## 📽️ Demo
 
-[![Watch the demo](https://img.youtube.com/vi/nywlMjxTvnc/0.jpg)](https://www.youtube.com/watch?v=nywlMjxTvnc)
+![Demo](demo/demo.gif)
 
 ## 📦 Installation
 
