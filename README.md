@@ -14,6 +14,10 @@ A fully customizable **selector component** for React Native, built from scratch
 ✅ Lightweight & easy to integrate  
 ✅ Haptic feedback support
 
+## 📽️ Demo
+
+[![Watch the demo](https://img.youtube.com/vi/nywlMjxTvnc/0.jpg)](https://www.youtube.com/watch?v=nywlMjxTvnc)
+
 ## 📦 Installation
 
 Install using npm:
