@@ -19,9 +19,8 @@ export const FilledBar = ({
 
 const styles = StyleSheet.create({
   basicStyles: {
-    backgroundColor: 'red',
     height: '100%',
-    borderRadius: 5,
+    borderRadius: 16,
     position: 'absolute',
   },
 });

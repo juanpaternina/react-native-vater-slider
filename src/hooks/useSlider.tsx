@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import {
-  interpolateColor,
   runOnJS,
   useAnimatedStyle,
-  useDerivedValue,
   useSharedValue,
-  withTiming,
 } from 'react-native-reanimated';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { trigger } from 'react-native-haptic-feedback';
 
 // Optional configuration
 const options = {
@@ -29,6 +26,7 @@ export const useSlider = <T,>({
   sliderWidth,
   thumbWidth,
   selectedValueByIndex,
+  enableHaptics = true,
   onSelected,
   onStartSelection,
   onSelectionChange,
@@ -50,22 +48,15 @@ export const useSlider = <T,>({
         sliderWidth - draggerRadius,
         Math.max(-draggerRadius, e.translationX + startPosition.value)
       );
-      const newSegment = Math.round(newPos / segmentSize);
-      // console.log(
-      //   'new segment',
-      //   newSegment,
-      //   newPos,
-      //   segmentSize,
-      //   draggerRadius.value,
-      //   e.translationX,
-      //   startPosition.value
-      // );
+      const newSegment = Math.abs(Math.round(newPos / segmentSize));
 
       offsetPosition.value = newPos;
 
       if (newSegment !== currentSegment.value) {
         currentSegment.value = newSegment;
-        runOnJS(ReactNativeHapticFeedback.trigger)('impactMedium', options);
+        if (enableHaptics) {
+          runOnJS(trigger)('impactMedium', options);
+        }
 
         if (onSelectionChange) {
           const selectedValue = values[currentSegment.value]?.value as T;
@@ -81,10 +72,6 @@ export const useSlider = <T,>({
       }
     });
 
-  const animatedValue = useDerivedValue(() => {
-    return withTiming(currentSegment.value, { duration: 300 });
-  });
-
   const animatedXPosition = useAnimatedStyle(() => ({
     transform: [
       {
@@ -95,11 +82,7 @@ export const useSlider = <T,>({
 
   const animatedBackground = useAnimatedStyle(() => {
     return {
-      backgroundColor: interpolateColor(
-        animatedValue.value,
-        values.map((_, index) => index),
-        values.map((i) => i.tintColor)
-      ),
+      backgroundColor: values[currentSegment.value]?.tintColor,
     };
   });
 
@@ -111,7 +94,6 @@ export const useSlider = <T,>({
 
   useEffect(() => {
     const tempSegmentSize = (sliderWidth + draggerRadius) / values.length;
-    console.log('segment size', tempSegmentSize);
     setSegmentSize(tempSegmentSize);
 
     startPosition.value += -draggerRadius;
@@ -134,7 +116,6 @@ export const useSlider = <T,>({
 
   useEffect(() => {
     if (thumbWidth) {
-      console.log('thumb update', thumbWidth);
       setDraggerRadius(thumbWidth / 2);
     }
   }, [draggerRadius, thumbWidth]);

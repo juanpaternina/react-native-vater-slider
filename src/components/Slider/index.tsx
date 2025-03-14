@@ -18,6 +18,7 @@ export type SharedEventProps<T> = {
   onSelected?: (item: T, index: number) => void;
   onSelectionChange?: (item: T, index: number) => void;
   onStartSelection?: () => void;
+  enableHaptics?: boolean;
   values: Array<Value<T>>;
   selectedValueByIndex?: number;
 };
@@ -40,6 +41,7 @@ export const Slider = <T,>(props: SliderProps<T>) => {
       onSelected: props.onSelected,
       onSelectionChange: props.onSelectionChange,
       onStartSelection: props.onStartSelection,
+      enableHaptics: props.enableHaptics,
     });
 
   const measureBar = (e: LayoutChangeEvent) => {

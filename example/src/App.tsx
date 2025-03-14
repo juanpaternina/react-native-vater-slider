@@ -32,13 +32,13 @@ export default function App() {
     <View style={styles.container}>
       <Slider
         values={sliderValues}
-        // onStartSelection={() => console.log('start selecting')}
-        // onSelectionChange={(item, index) =>
-        //   console.log('current selection', item, index)
-        // }
-        // onSelected={(item, index) =>
-        //   console.log('position selected is', item, index)
-        // }
+        onStartSelection={() => console.log('start selecting')}
+        onSelectionChange={(item, index) =>
+          console.log('current selection', item, index)
+        }
+        onSelected={(item, index) =>
+          console.log('position selected is', item, index)
+        }
         selectedValueByIndex={selectedValue}
       />
     </View>
