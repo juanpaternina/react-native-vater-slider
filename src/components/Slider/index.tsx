@@ -68,10 +68,7 @@ export const Slider = <T,>(props: SliderProps<T>) => {
               onLayout: measureThumb,
             })
           ) : (
-            <DefaultThumb
-              //styles={animatedBackground}
-              onLayout={measureThumb}
-            />
+            <DefaultThumb styles={animatedBackground} onLayout={measureThumb} />
           )}
         </ThumbContainer>
       </Bar>

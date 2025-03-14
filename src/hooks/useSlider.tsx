@@ -8,6 +8,13 @@ import {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+
+// Optional configuration
+const options = {
+  enableVibrateFallback: true,
+  ignoreAndroidSystemSettings: false,
+};
 
 import type { SharedEventProps, Value } from '../components/Slider';
 
@@ -58,6 +65,7 @@ export const useSlider = <T,>({
 
       if (newSegment !== currentSegment.value) {
         currentSegment.value = newSegment;
+        runOnJS(ReactNativeHapticFeedback.trigger)('impactMedium', options);
 
         if (onSelectionChange) {
           const selectedValue = values[currentSegment.value]?.value as T;
